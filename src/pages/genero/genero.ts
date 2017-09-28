@@ -10,6 +10,15 @@ import { TabsPage } from '../tabs/tabs';
 
 export class GeneroPage {
 
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl : AlertController,
+    private modalCtrl : ModalController
+  ) {
+    this.initializeItems();
+  }
+
   public generos_json = [
   {nome: "Biográficos"},
   {nome: "Didáticos"},
@@ -60,16 +69,6 @@ export class GeneroPage {
 
     }
 
-
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private alertCtrl : AlertController,
-    private modalCtrl : ModalController
-    ) {
-      this.initializeItems();
-    }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad GeneroPage');
   }
@@ -78,7 +77,7 @@ export class GeneroPage {
 
     let confirm = this.alertCtrl.create({
       title: 'Exclusão de Gênero',
-      message: 'Confirma a exclusão do gênero: ' + g.nome + '?',
+      message: 'Confirma a exclusão do gênero: ' + g + '?',
       buttons: [
         {
           text: 'Cancelar',
@@ -88,7 +87,9 @@ export class GeneroPage {
         {
           text: 'Excluir',
           handler: () => {
-            this.showAlerta(g);
+            this.delItem(g);
+            this.initializeItems();
+            //this.showAlerta(g);
           }
         }
       ]
@@ -100,7 +101,7 @@ export class GeneroPage {
 
     let alert = this.alertCtrl.create({
       title: 'Gênero',
-      subTitle: "Gênero '" + g.nome + "' excluído com sucesso!",
+      subTitle: "Gênero '" + g + "' excluído com sucesso!",
       buttons: ['OK']
     });
     alert.present();
@@ -112,6 +113,24 @@ export class GeneroPage {
     let modal = this.modalCtrl.create (TabsPage);
     modal.present ();
 
+  }
+
+  delItem(item){
+
+    var indice = 0;
+
+    for (var i = 0; i < this.itens.length; i++) {
+      if (item == this.itens[i]) {
+        indice = i;
+      }
+    }
+
+    //const index = this.generos_json.indexOf(item);
+    //this.showAlerta("gênero = " + item + ". Índice: " + indice);
+
+    const elementoRemovido = this.generos_json.splice(indice, 1);
+     // aqui podes fazer algo com o item removido
+     // a array modifica-se a si própria com o splice
   }
 
 }
