@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Gêneros</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <h1>Listagem de Gêneros</h1>
+
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-list id="listaDeGeneros" no-lines>
+
+    <ion-item-sliding *ngFor = "let g of itens">
+
+      <ion-item class="genero_item">
+        {{g}}
+      </ion-item>
+
+      <ion-item-options>
+
+        <button ion-button color="primary" (click)="alterarGenero(g)">
+          <ion-icon name = "create"></ion-icon>
+        </button>
+
+        <button ion-button color="danger" (click)="removerGenero(g)">
+          <ion-icon name = "trash"></ion-icon>
+        </button>
+
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab color="danger" (click) = "voltaPagina()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>
