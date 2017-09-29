@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { LivrosPage } from '../pages/livros/livros';
 import { EditoraPage } from '../pages/editora/editora';
 import { GeneroPage } from '../pages/genero/genero';
+import { FormGeneroPage } from '../pages/form-genero/form-genero';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -19,7 +20,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TabsPage,
     LivrosPage,
     EditoraPage,
-    GeneroPage
+    GeneroPage,
+    FormGeneroPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TabsPage,
     LivrosPage,
     EditoraPage,
-    GeneroPage
+    GeneroPage,
+    FormGeneroPage
   ],
   providers: [
     StatusBar,

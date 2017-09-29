@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController} from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { FormGeneroPage } from '../form-genero/form-genero';
 
 @IonicPage()
 @Component({
@@ -14,7 +16,8 @@ export class GeneroPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl : AlertController,
-    private modalCtrl : ModalController
+    private modalCtrl : ModalController,
+    public toastCtrl: ToastController
   ) {
     this.initializeItems();
   }
@@ -42,14 +45,6 @@ export class GeneroPage {
       this.itens.push(this.generos_json[i].nome)
     }
 
-    /*
-    let alert = this.alertCtrl.create({
-      title: 'Gênero',
-      subTitle: this.itens[0],
-      buttons: ['OK']
-    });
-    alert.present();
-    */
   }
 
   getItems(ev) {
@@ -68,6 +63,10 @@ export class GeneroPage {
       }
 
     }
+
+  onCancel(ev) {
+    ev.target.value = '';
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GeneroPage');
@@ -89,23 +88,11 @@ export class GeneroPage {
           handler: () => {
             this.delItem(g);
             this.initializeItems();
-            //this.showAlerta(g);
           }
         }
       ]
     });
     confirm.present();
-  }
-
-  showAlerta(g : any) {
-
-    let alert = this.alertCtrl.create({
-      title: 'Gênero',
-      subTitle: "Gênero '" + g + "' excluído com sucesso!",
-      buttons: ['OK']
-    });
-    alert.present();
-
   }
 
   voltaPagina() {
@@ -119,18 +106,48 @@ export class GeneroPage {
 
     var indice = 0;
 
-    for (var i = 0; i < this.itens.length; i++) {
-      if (item == this.itens[i]) {
+    for (var i = 0; i < this.generos_json.length; i++) {
+      if (item == this.generos_json[i].nome) {
         indice = i;
+        break;
       }
     }
 
     //const index = this.generos_json.indexOf(item);
-    //this.showAlerta("gênero = " + item + ". Índice: " + indice);
 
     const elementoRemovido = this.generos_json.splice(indice, 1);
-     // aqui podes fazer algo com o item removido
-     // a array modifica-se a si própria com o splice
+
+    //this.objeto_searchbar.value = "";
+
+    this.showToast("Registro Excluído com Sucesso!")
   }
 
+  showToast(mensagem: string) {
+    let toast = this.toastCtrl.create({
+      message: mensagem,
+      duration: 1000,
+      position: 'middle'
+    });
+
+    toast.present(toast);
+  }
+
+  showAlerta(mensagem: any) {
+
+    let alert = this.alertCtrl.create({
+      title: 'Atenção',
+      subTitle: mensagem,
+      buttons: ['OK']
+    });
+    alert.present();
+
+  }
+
+  abrirFormCadastroGenero() {
+
+    let modal = this.modalCtrl.create (FormGeneroPage);
+
+    modal.present ();
+
+  }
 }

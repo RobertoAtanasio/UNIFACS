@@ -8,11 +8,16 @@
 
 <ion-content padding>
 
-  <h1>Listagem de Gêneros</h1>
+  <h3>Listagem de Gêneros</h3>
 
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar
+    [(ngModel)]="myInput"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="getItems($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
 
-  <ion-list id="listaDeGeneros" no-lines>
+  <ion-list id="listaDeGeneros" lines>
 
     <ion-item-sliding *ngFor = "let g of itens">
 
@@ -20,14 +25,16 @@
         {{g}}
       </ion-item>
 
-      <ion-item-options>
+      <ion-item-options side="left">
 
         <button ion-button color="primary" (click)="alterarGenero(g)">
           <ion-icon name = "create"></ion-icon>
+          Alterar
         </button>
 
         <button ion-button color="danger" (click)="removerGenero(g)">
           <ion-icon name = "trash"></ion-icon>
+          Excluir
         </button>
 
       </ion-item-options>
@@ -37,8 +44,8 @@
   </ion-list>
 
   <ion-fab bottom right>
-    <button ion-fab color="danger" (click) = "voltaPagina()">
-      <ion-icon name="arrow-back"></ion-icon>
+    <button ion-fab color="danger" (click) = "abrirFormCadastroGenero()">
+      <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
 
